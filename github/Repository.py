@@ -3953,3 +3953,14 @@ class Repository(github.GithubObject.CompletableGithubObject):
         # DELETE /repos/:owner/:repo/actions/runs/:run_id
         status, _, _ = self._requester.requestJson("DELETE", self.url + f"/actions/runs/{id_}")
         return status == 204
+
+    def delete_git_ref(self, ref: str) -> bool:
+        # DELETE /repos/{owner}/{repo}/git/refs/{ref}
+        prefix = "/git/refs/"
+        if not self._requester.FIX_REPO_GET_GIT_REF:
+            prefix = "/git/"
+        assert isinstance(ref, str), ref
+        status, _, _ = self._requester.requestJson(
+            "DELETE", f"{self.url}{prefix}{ref}"
+        )
+        return status == 204
