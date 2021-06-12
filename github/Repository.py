@@ -3131,6 +3131,7 @@ class Repository(github.GithubObject.CompletableGithubObject):
         branch=github.GithubObject.NotSet,
         event=github.GithubObject.NotSet,
         status=github.GithubObject.NotSet,
+        url_parameters=dict(),
     ):
         """
         :calls: `GET /repos/{owner}/{repo}/actions/runs <https://docs.github.com/en/rest/reference/actions/workflow-runs#list-workflow-runs-for-a-repository>`_
@@ -3154,7 +3155,7 @@ class Repository(github.GithubObject.CompletableGithubObject):
         assert event is github.GithubObject.NotSet or isinstance(event, str), event
         assert status is github.GithubObject.NotSet or isinstance(status, str), status
 
-        url_parameters = dict()
+
         if actor is not github.GithubObject.NotSet:
             if isinstance(actor, github.NamedUser.NamedUser):
                 url_parameters["actor"] = actor._identity
